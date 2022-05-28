@@ -283,7 +283,7 @@ def clear_database():
 
 def scrolling_page(browser, length):
     for i in range(1, length):
-        time.sleep(10)
+        time.sleep(6)
         btn = browser.find_element(By.ID, 'sneaker-release-load-more-btn')
         btn.click()
 
@@ -293,7 +293,7 @@ def searching_data(url, length):
     browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     browser.fullscreen_window()
     browser.get(url)
-    time.sleep(15)
+    time.sleep(10)
 
     if len(browser.find_elements(By.ID, 'CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll')) > 0:
         btn = browser.find_element(By.ID, 'CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll')
