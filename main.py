@@ -253,7 +253,7 @@ def parser_from_sneaker_news(r, length):
                 sneaker.price_usd = (item.find('span', class_='release-price').get_text()[2:])
 
                 try:
-                    sneaker.price_rub = int(sneaker.price_usd) * 65  # сделать нормальный парсинг курса
+                    sneaker.price_rub = int(sneaker.price_usd) * 120  # сделать нормальный парсинг курса
                 except Exception as ex:
                     sneaker.price_rub = 'N/A'
                     print(ex)
