@@ -28,15 +28,11 @@ bd_sneakers_name = 'sneakers_database'
 bd_jordans_name = 'jordans_database'
 bd_yeezys_name = 'yeezys_database'
 
-start_point = 0
-end_point = 10
-status_working = False
+d = {'start_point': 0, 'end_point' : 10, 'status_working' : False }
 
 
 @bot.message_handler(commands=['start'])
 def cmd_start(message):
-    global status_working
-
     bot.reply_to(message, emoji.emojize('Hi, i`m Sneak.:waving_hand: \n'
                                         'If you need help use command \"/help\"'))
 
@@ -47,9 +43,8 @@ def cmd_start(message):
                                       f" Nike Air Jordan;\n"
                                       f"    {get_count_notes(bd_yeezys_name)} notes about sneakers produced by Yeezy.")
 
-    status_working = True
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-
+    d['status_working'] = True
     btn1 = types.KeyboardButton(emoji.emojize(':newspaper:Sneakers news'))
     btn3 = types.KeyboardButton(emoji.emojize(':recycling_symbol:Update'))
     markup.add(btn1)
@@ -63,15 +58,14 @@ def cmd_start(message):
 
 @bot.message_handler(commands=['help'])
 def com_help(message):
-    if status_working:
+    if d['status_working']:
         bot.send_message(message.chat.id, 'I can run the following commands:\n'
                                           '/start - Start working;\n')
 
 
 @bot.message_handler(content_types=['text'])
 def hadl_text(message):
-    global start_point, end_point
-    if status_working:
+    if d['status_working']:
         if message.text.strip() == emoji.emojize(':newspaper:Sneakers news'):
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
             btn1 = types.KeyboardButton('Sneakers')
@@ -117,16 +111,16 @@ def hadl_text(message):
             btn2 = types.KeyboardButton(emoji.emojize(':BACK_arrow:Back'))
             markup.add(btn1)
             markup.add(btn2)
-            start_point = 0
-            end_point = 10
-            posts_output(start_point, end_point, bd_sneakers_name, message)
+            d['start_position'] = 0
+            d['end_point'] = 10
+            posts_output(d['start_point'], ['end_point'], bd_sneakers_name, message)
             bot.send_message(message.chat.id, 'What you want see next?', reply_markup=markup)
 
         elif message.text.strip() == 'Next 10 sneakers':
             bot.send_message(message.chat.id, 'Ok, send 10 more sneakers.')
-            start_point += 10
-            end_point += 10
-            posts_output(start_point, end_point, bd_sneakers_name, message)
+            d['start_position'] += 10
+            d['end_point'] += 10
+            posts_output(d['start_point'], ['end_point'], bd_sneakers_name, message)
             bot.send_message(message.chat.id, 'What you want see next?')
 
         elif message.text.strip() == '10 Jordans':
@@ -135,16 +129,16 @@ def hadl_text(message):
             btn2 = types.KeyboardButton(emoji.emojize(':BACK_arrow:Back'))
             markup.add(btn1)
             markup.add(btn2)
-            start_point = 0
-            end_point = 10
-            posts_output(start_point, end_point, bd_jordans_name, message)
+            d['start_position'] = 0
+            d['end_point'] = 10
+            posts_output(d['start_point'], ['end_point'], bd_jordans_name, message)
             bot.send_message(message.chat.id, 'What you want see next?', reply_markup=markup)
 
         elif message.text.strip() == 'Next 10 Jordans':
             bot.send_message(message.chat.id, 'Ok, send 10 more jordans')
-            start_point += 10
-            end_point += 10
-            posts_output(start_point, end_point, bd_jordans_name, message)
+            d['start_position'] += 10
+            d['end_point'] += 10
+            posts_output(d['start_point'], ['end_point'], bd_jordans_name, message)
             bot.send_message(message.chat.id, 'What you want see next?')
 
         elif message.text.strip() == '10 Yeezys':
@@ -153,16 +147,16 @@ def hadl_text(message):
             btn2 = types.KeyboardButton(emoji.emojize(':BACK_arrow:Back'))
             markup.add(btn1)
             markup.add(btn2)
-            start_point = 0
-            end_point = 10
-            posts_output(start_point, end_point, bd_yeezys_name, message)
+            d['start_position'] = 0
+            d['end_point'] = 10
+            posts_output(d['start_point'], ['end_point'], bd_yeezys_name, message)
             bot.send_message(message.chat.id, 'What you want see next?', reply_markup=markup)
 
         elif message.text.strip() == 'Next 10 Yeezys':
             bot.send_message(message.chat.id, 'Ok, send 10 more yeezys')
-            start_point += 10
-            end_point += 10
-            posts_output(start_point, end_point, bd_yeezys_name, message)
+            d['start_position'] += 10
+            d['end_point'] += 10
+            posts_output(d['start_point'], ['end_point'], bd_yeezys_name, message)
             bot.send_message(message.chat.id, 'What you want see next?')
 
         elif message.text.strip() == emoji.emojize(':recycling_symbol:Update'):
